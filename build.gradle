@@ -58,6 +58,19 @@ test {
     def parameter = '-Denvironment='
     def environment = System.getProperty("environment")
     jvmArgs(parameter+environment)
+    
+    // Asegurar que los reportes se generen incluso si hay fallos
+    ignoreFailures = true
+    
+    // Configuración para Serenity
+    systemProperty "file.encoding", "UTF-8"
+    systemProperty "serenity.outputDirectory", "${project.buildDir}/reports/serenity"
+}
+
+// Configuración del plugin Serenity
+serenity {
+    reports = ["single-page-html", "html"]
+    outputDirectory = "${project.buildDir}/reports/serenity"
 }
 
 gradle.startParameter.continueOnFailure = true
